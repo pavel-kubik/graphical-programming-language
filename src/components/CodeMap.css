@@ -1,4 +1,6 @@
 .CodeMap {
-  width: 100%;
+  width: 95%;
   flex: 1;
+
+  text-align: left;
 }
