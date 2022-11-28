@@ -1,0 +1,12 @@
+.OutputBox {
+  width: 100%;
+}
+
+.OutputBox textarea {
+  text-align: center;
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  width: 95%;
+  border: 1px dotted green;
+}
