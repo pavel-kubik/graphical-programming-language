@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
-import './Const.css';
+import Mapping from './Mapping';
+import './Statement.css';
 
-const Const = ({ name, value, handleEditLine }) => {
+const Statement = ({ type, name, value, handleEditLine }) => {
   const nameInput = useRef(null);
   const valueInput = useRef(null);
 
@@ -32,22 +33,26 @@ const Const = ({ name, value, handleEditLine }) => {
 
   return (
     <span>
-      <span>const </span>
-      <input
-        ref={nameInput}
-        className="const"
-        value={name}
-        onChange={changeName}
-      />
-      <span> = </span>
-      <input
-        ref={valueInput}
-        className="expression"
-        value={value}
-        onChange={changeValue}
-      />
+      {['const', 'var', 'expression'].includes(type) && (
+        <>
+          <span>{Mapping[type]} </span>
+          <input
+            ref={nameInput}
+            className={type}
+            value={name}
+            onChange={changeName}
+          />
+          <span> = </span>
+          <input
+            ref={valueInput}
+            className="expression"
+            value={value}
+            onChange={changeValue}
+          />
+        </>
+      )}
     </span>
   );
 };
 
-export default Const;
+export default Statement;

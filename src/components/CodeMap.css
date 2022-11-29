@@ -5,11 +5,42 @@
   text-align: left;
 }
 
-.lineNumber {
+.CodeLine {
+  display: block;
+  white-space: pre;
+}
+
+.LineNumber {
   color: gray;
+}
+
+.Code {
+  float: left;
+  position: absolute;
 }
 
 .TrueCode {
   float: right;
   text-align: left;
+  white-space: pre;
+}
+
+.CodeMap .CodeLine {
+  white-space: pre;
+}
+
+.CodeMap .CodeLine input {
+  background: #282c34;
+  color: white;
+  font-size: calc(10px + 2vmin);
+  border: 1px dotted white;
+  text-align: center;
+}
+
+.CodeMap .CodeLine input.const {
+  color: yellow;
+}
+
+.CodeMap .CodeLine input.var {
+  color: blue;
 }
