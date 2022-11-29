@@ -16,7 +16,7 @@ const CodeMap = ({ codeMap, editLine }) => {
       {codeMap.length === 0 && 'Place your code here.'}
       {codeMap.length > 0 &&
         codeMap.map((line, i) => (
-          <div key={line.name} className="codeLine">
+          <div key={i} className="codeLine">
             <span className="lineNumber">{i}. </span>
             {line.type === 'const' && (
               <Const
