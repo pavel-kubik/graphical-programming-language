@@ -4,3 +4,12 @@
 
   text-align: left;
 }
+
+.lineNumber {
+  color: gray;
+}
+
+.TrueCode {
+  float: right;
+  text-align: left;
+}

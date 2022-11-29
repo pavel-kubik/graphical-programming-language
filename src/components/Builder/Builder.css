@@ -14,3 +14,15 @@
   padding: 10px;
   margin: 5px;
 }
+
+.CodeMap .codeLine input {
+  background: #282c34;
+  color: white;
+  font-size: calc(10px + 2vmin);
+  border: 1px dotted white;
+  text-align: center;
+}
+
+.CodeMap .codeLine input.const {
+  color: yellow;
+}

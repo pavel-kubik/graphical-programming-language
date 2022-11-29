@@ -2,7 +2,11 @@ import './Builder.css';
 
 const Builder = ({ addCode }) => {
   const addConst = () => {
-    addCode('const ___ = ___');
+    addCode({
+      type: 'const',
+      name: '___',
+      value: '___',
+    });
   };
 
   return (
