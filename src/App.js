@@ -8,6 +8,7 @@ import OutputBox from './components/OutputBox';
 import RunDebugBar from './components/RunDebugBar';
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const [mode, setMode] = useState('code');
   //const [mode, setMode] = useState('graph');
 
@@ -44,6 +45,7 @@ function App() {
     const header = `const run = (input) => {\n`;
     const footer = `\n}\nrun("${escapeNewLines(input)}")`;
     console.log(header + code + footer);
+    // eslint-disable-next-line no-eval
     const out = eval(header + code + footer);
     console.log('Out: ' + out);
     setOutput(out);
