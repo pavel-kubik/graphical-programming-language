@@ -9,4 +9,5 @@
   color: white;
   width: 95%;
   border: 1px dotted green;
+  resize: none;
 }

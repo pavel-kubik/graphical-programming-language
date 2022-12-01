@@ -1,0 +1,16 @@
+.RunDebugBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  width: 95%;
+  border: 1px solid white;
+  padding: 10px 0;
+}
+
+.RunDebugBar > div {
+  border: 1px solid grey;
+  padding: 10px;
+  margin: 5px;
+}
