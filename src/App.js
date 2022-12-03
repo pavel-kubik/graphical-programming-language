@@ -17,7 +17,12 @@ function App() {
   return (
     <div id="outer-container">
       <Router>
-        <Menu right pageWrapId={'App'} outerContainerId={'outer-container'}>
+        <Menu
+          right
+          width="auto"
+          pageWrapId={'App'}
+          outerContainerId={'outer-container'}
+        >
           <Link id="Codding" to="/">
             Codding
           </Link>
