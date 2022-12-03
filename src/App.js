@@ -9,10 +9,17 @@ import Settings from './components/Settings';
 
 function App() {
   // settings
-  const [url, setUrl] = useState(
-    'https://adventofcode.com/2022/day/%day%/input'
-  );
-  const [session, setSession] = useState('1234567890');
+  const [url, setUrl] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem('url');
+    return saved || 'https://adventofcode.com/2022/day/%day%/input';
+  });
+
+  const [session, setSession] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem('session');
+    return saved || '123456789';
+  });
 
   return (
     <div id="outer-container">

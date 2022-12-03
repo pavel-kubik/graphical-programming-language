@@ -15,7 +15,7 @@
 
 .Load {
   position: absolute;
-  top: 5px;
+  bottom: 20px;
   right: 20px;
   padding: 3px;
   border: 1px solid #00f;

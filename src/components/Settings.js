@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './Settings.css';
 
 const Settings = ({ url, session, setUrl, setSession }) => {
@@ -11,13 +12,21 @@ const Settings = ({ url, session, setUrl, setSession }) => {
     setSession(event.target.value);
   };
 
+  useEffect(() => {
+    localStorage.setItem('url', url);
+  }, [url]);
+
+  useEffect(() => {
+    localStorage.setItem('session', session);
+  }, [session]);
+
   return (
-    <div className="settings">
+    <div className="Settings">
       <h1>Settings</h1>
       <p>URL</p>
       <input type="text" value={url} onChange={handleUrlChange} />
       <p>Session</p>
-      <input type="text" value={session} onChange={handleSessionChanged} />
+      <textarea type="text" value={session} onChange={handleSessionChanged} />
     </div>
   );
 };
