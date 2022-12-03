@@ -1,9 +1,12 @@
 import './RunDebugBar.css';
 
-const RunDebugBar = ({ runHandler }) => {
+const RunDebugBar = ({ runHandler, mode, handleChangeMode }) => {
   return (
     <div className="RunDebugBar">
-      <div onClick={runHandler}>Run javascript</div>
+      <div onClick={handleChangeMode}>{mode}</div>
+      <div className="Run" onClick={runHandler}>
+        Run
+      </div>
     </div>
   );
 };

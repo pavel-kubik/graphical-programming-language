@@ -9,7 +9,8 @@ import RunDebugBar from './components/RunDebugBar';
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [mode, setMode] = useState('code');
+  const modes = ['code-js', 'code-ruby', 'graphical'];
+  const [mode, setMode] = useState(modes[0]);
   //const [mode, setMode] = useState('graph');
 
   //graph editor (code map)
@@ -51,19 +52,28 @@ function App() {
     setOutput(out);
   };
 
+  const handleChangeMode = () => {
+    const index = modes.indexOf(mode);
+    setMode(modes[(index + 1) % modes.length]);
+  };
+
   return (
     <div className="App">
       <header className="App-header">Graphical Programming Language</header>
       <InputBox input={input} setInput={setInput} />
-      {mode === 'graph' && (
+      <RunDebugBar
+        runHandler={runHandler}
+        mode={mode}
+        handleChangeMode={handleChangeMode}
+      />
+      {mode === 'graphical' && (
         <>
           <Builder addCode={addCode} />
           <CodeMap codeMap={codeMap} editLine={editLine} />
         </>
       )}
-      {mode === 'code' && (
+      {mode.startsWith('code-') && (
         <>
-          <RunDebugBar runHandler={runHandler} />
           <CodeEditor code={code} setCode={setCode} />
         </>
       )}

@@ -14,3 +14,7 @@
   padding: 10px;
   margin: 5px;
 }
+
+.RunDebugBar .Run {
+  background-color: #090;
+}
