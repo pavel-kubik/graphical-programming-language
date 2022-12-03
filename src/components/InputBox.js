@@ -1,8 +1,6 @@
 import './InputBox.css';
 
-const InputBox = ({ input, setInput }) => {
-  const session = '';
-
+const InputBox = ({ input, setInput, url, session }) => {
   const handlerChangeInput = (event) => {
     event.preventDefault();
     setInput(event.target.value);
@@ -23,7 +21,7 @@ const InputBox = ({ input, setInput }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        url: `https://adventofcode.com/2022/day/${day}/input`,
+        url: url.replace('%day%', day),
         cookie: 'session=' + session,
       }),
     })

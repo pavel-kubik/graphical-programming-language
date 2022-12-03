@@ -8,9 +8,11 @@ const CodeEditor = ({ code, setCode }) => {
 
   return (
     <div className="CodeEditor">
-      <textarea placeholder="Place your code here" onChange={handleChangeCode}>
-        {code}
-      </textarea>
+      <textarea
+        placeholder="Place your code here"
+        onChange={handleChangeCode}
+        value={code}
+      ></textarea>
     </div>
   );
 };
