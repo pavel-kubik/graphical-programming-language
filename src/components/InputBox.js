@@ -1,9 +1,26 @@
 import './InputBox.css';
 
-const InputBox = ({ input, setInput, url, session }) => {
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
+const InputBox = ({
+  input,
+  setInput,
+  testInput,
+  setTestInput,
+  url,
+  session,
+  dataTabIndex,
+  setDataTabIndex,
+}) => {
   const handlerChangeInput = (event) => {
     event.preventDefault();
     setInput(event.target.value);
+  };
+
+  const handlerChangeTestInput = (event) => {
+    event.preventDefault();
+    setTestInput(event.target.value);
   };
 
   const handleLoadData = (event) => {
@@ -38,14 +55,32 @@ const InputBox = ({ input, setInput, url, session }) => {
 
   return (
     <div className="InputBox">
-      <textarea
-        placeholder="Put input"
-        value={input}
-        onChange={handlerChangeInput}
-      ></textarea>
-      <div className="Load" onClick={handleLoadData}>
-        Load data from AoC
-      </div>
+      <Tabs
+        selectedIndex={dataTabIndex}
+        onSelect={(index) => setDataTabIndex(index)}
+      >
+        <TabList>
+          <Tab>Main data</Tab>
+          <Tab>Test data</Tab>
+        </TabList>
+        <TabPanel>
+          <textarea
+            placeholder="Put input"
+            value={input}
+            onChange={handlerChangeInput}
+          ></textarea>
+          <div className="Load" onClick={handleLoadData}>
+            Load data from AoC
+          </div>
+        </TabPanel>
+        <TabPanel>
+          <textarea
+            placeholder="Put test input"
+            value={testInput}
+            onChange={handlerChangeTestInput}
+          ></textarea>
+        </TabPanel>
+      </Tabs>
     </div>
   );
 };

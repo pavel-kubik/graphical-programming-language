@@ -1,13 +1,14 @@
 .OutputBox {
-  width: 100%;
+  width: 95%;
+  text-align: left;
 }
 
 .OutputBox textarea {
-  text-align: center;
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
   color: white;
-  width: 95%;
+  width: 100%;
   border: 1px dotted green;
   resize: none;
+  padding: 0;
 }

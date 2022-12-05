@@ -20,8 +20,12 @@ const Codding = ({ url, session }) => {
   //code editor
   const [code, setCode] = useState('');
 
+  // data
   const [input, setInput] = useState('');
+  const [testInput, setTestInput] = useState('');
   const [output, setOutput] = useState('');
+  const [testOutput, setTestOutput] = useState('');
+  const [dataTabIndex, setDataTabIndex] = useState(0);
 
   const addCode = (code) => {
     setCodeMap([...codeMap, code]);
@@ -44,13 +48,14 @@ const Codding = ({ url, session }) => {
   };
 
   const runHandler = () => {
+    const inputCode = dataTabIndex === 0 ? input : testInput;
     const header = `const run = (input) => {\n`;
-    const footer = `\n}\nrun("${escapeNewLines(input)}")`;
+    const footer = `\n}\nrun("${escapeNewLines(inputCode)}")`;
     console.log(header + code + footer);
     // eslint-disable-next-line no-eval
     const out = eval(header + code + footer);
     console.log('Out: ' + out);
-    setOutput(out);
+    dataTabIndex === 0 ? setOutput(out) : setTestOutput(out);
   };
 
   const handleChangeMode = () => {
@@ -60,7 +65,16 @@ const Codding = ({ url, session }) => {
 
   return (
     <>
-      <InputBox input={input} setInput={setInput} url={url} session={session} />
+      <InputBox
+        input={input}
+        setInput={setInput}
+        testInput={testInput}
+        setTestInput={setTestInput}
+        url={url}
+        session={session}
+        dataTabIndex={dataTabIndex}
+        setDataTabIndex={setDataTabIndex}
+      />
       <RunDebugBar
         runHandler={runHandler}
         mode={mode}
@@ -77,7 +91,12 @@ const Codding = ({ url, session }) => {
           <CodeEditor code={code} setCode={setCode} />
         </>
       )}
-      <OutputBox output={output} />
+      <OutputBox
+        output={output}
+        testOutput={testOutput}
+        dataTabIndex={dataTabIndex}
+        setDataTabIndex={setDataTabIndex}
+      />
     </>
   );
 };
