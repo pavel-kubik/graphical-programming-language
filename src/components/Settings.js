@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './Settings.css';
 
 const Settings = ({ url, session, setUrl, setSession }) => {
