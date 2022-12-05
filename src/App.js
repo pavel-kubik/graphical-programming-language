@@ -6,8 +6,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import Codding from './components/Codding';
 import Settings from './components/Settings';
+import useVH from 'react-viewport-height';
 
 function App() {
+  useVH();
+
   // settings
   const [url, setUrl] = useState(() => {
     // getting stored value

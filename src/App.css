@@ -1,7 +1,9 @@
 .App {
   text-align: center;
   background-color: #282c34;
-  height: calc(var(--vh, 1vh) * 100); /* iphone 100vh fix */
+  height: calc(
+    var(--vh, 1vh) * 100
+  ); /* iphone 100vh fix - vh from library react-viewport-height */
   display: flex;
   flex-direction: column;
   align-items: center;
