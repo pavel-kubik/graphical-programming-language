@@ -1,7 +1,7 @@
 import './App.css';
 import './BurgerMenu.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import Codding from './components/Codding';
@@ -14,12 +14,18 @@ function App() {
     const saved = localStorage.getItem('url');
     return saved || 'https://adventofcode.com/2022/day/%day%/input';
   });
+  useEffect(() => {
+    localStorage.setItem('url', url);
+  }, [url]);
 
   const [session, setSession] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem('session');
     return saved || '123456789';
   });
+  useEffect(() => {
+    localStorage.setItem('session', session);
+  }, [session]);
 
   return (
     <div id="outer-container">

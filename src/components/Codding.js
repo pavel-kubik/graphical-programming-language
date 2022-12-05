@@ -1,6 +1,6 @@
 import './Codding.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Builder from './Builder/Builder';
 import CodeEditor from './CodeEditor';
 import CodeMap from './CodeMap';
@@ -18,7 +18,14 @@ const Codding = ({ url, session }) => {
   const [codeMap, setCodeMap] = useState([]);
 
   //code editor
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(() => {
+    // getting stored value
+    const savedCode = localStorage.getItem('code');
+    return savedCode || '';
+  });
+  useEffect(() => {
+    localStorage.setItem('code', code);
+  }, [code]);
 
   // data
   const [input, setInput] = useState('');

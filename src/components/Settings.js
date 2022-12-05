@@ -12,14 +12,6 @@ const Settings = ({ url, session, setUrl, setSession }) => {
     setSession(event.target.value);
   };
 
-  useEffect(() => {
-    localStorage.setItem('url', url);
-  }, [url]);
-
-  useEffect(() => {
-    localStorage.setItem('session', session);
-  }, [session]);
-
   return (
     <div className="Settings">
       <h1>Settings</h1>
