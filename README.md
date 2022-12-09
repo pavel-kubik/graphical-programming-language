@@ -1,3 +1,17 @@
+# Graphical Programming Language
+
+Main goal is to allow code from mobile phone/tablet.
+
+First use case is solve daily puzzle for Advent of Code.
+
+# Netlify
+
+Application is deployed to Netlify and it contains Netlify functions (BE). It is so far just for proxy calls to AoC servers to avoid no-CORS issue.
+
+You can start application at local machine with Netlify BE with following command:
+
+`netlify dev`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
