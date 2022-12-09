@@ -3,6 +3,8 @@
   flex: 1;
 
   text-align: left;
+  background: black;
+  border: 1px solid white;
 }
 
 .CodeLine {
