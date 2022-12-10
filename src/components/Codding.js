@@ -9,6 +9,9 @@ import OutputBox from './OutputBox';
 import RunDebugBar from './RunDebugBar';
 
 const Codding = ({ url, session }) => {
+  const DATA_TEMPLATE = "%data%";
+  const CODE_TEMPLATE = `'${DATA_TEMPLATE}'.split('\\n').join('-')`;
+
   // eslint-disable-next-line no-unused-vars
   const modes = ['code-js', 'code-ruby', 'graphical'];
   const [mode, setMode] = useState(modes[0]);
@@ -21,7 +24,7 @@ const Codding = ({ url, session }) => {
   const [code, setCode] = useState(() => {
     // getting stored value
     const savedCode = localStorage.getItem('code');
-    return savedCode || '';
+    return savedCode || CODE_TEMPLATE;
   });
   useEffect(() => {
     localStorage.setItem('code', code);
@@ -56,11 +59,10 @@ const Codding = ({ url, session }) => {
 
   const runHandler = () => {
     const inputCode = dataTabIndex === 0 ? input : testInput;
-    const header = `const run = (input) => {\n`;
-    const footer = `\n}\nrun("${escapeNewLines(inputCode)}")`;
-    console.log(header + code + footer);
+    const codeForRun = code.replace(DATA_TEMPLATE, escapeNewLines(inputCode));
+    console.log(codeForRun);
     // eslint-disable-next-line no-eval
-    const out = eval(header + code + footer);
+    const out = eval(codeForRun);
     console.log('Out: ' + out);
     dataTabIndex === 0 ? setOutput(out) : setTestOutput(out);
   };

@@ -1,18 +1,24 @@
 import './CodeEditor.css';
+import Editor from "@monaco-editor/react";
 
-const CodeEditor = ({ code, setCode }) => {
-  const handleChangeCode = (event) => {
-    event.preventDefault();
-    setCode(event.target.value);
+const CodeEditor = ({ code, setCode, language }) => {
+  const handleChangeCode = (value) => {
+    setCode(value);
   };
 
   return (
     <div className="CodeEditor">
-      <textarea
-        placeholder="Place your code here"
-        onChange={handleChangeCode}
+      <Editor
+        language={language
+          || "javascript"
+          /*|| "typescript"*/
+          /*|| "ruby"*/
+        }
         value={code}
-      ></textarea>
+        theme='vs-dark'
+        defaultValue="// place your code here"
+      onChange={handleChangeCode}
+      />
     </div>
   );
 };
