@@ -1,17 +1,15 @@
 import './Codding.css';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Builder from './Builder/Builder';
 import CodeEditor from './CodeEditor';
 import CodeMap from './CodeMap';
 import InputBox from './InputBox';
 import OutputBox from './OutputBox';
 import RunDebugBar from './RunDebugBar';
+import { DATA_TEMPLATE } from '../const';
 
-const Codding = ({ url, session }) => {
-  const DATA_TEMPLATE = "%data%";
-  const CODE_TEMPLATE = `'${DATA_TEMPLATE}'.split('\\n').join('-')`;
-
+const Codding = ({ url, session, code, setCode }) => {
   // eslint-disable-next-line no-unused-vars
   const modes = ['code-js', 'code-ruby', 'graphical'];
   const [mode, setMode] = useState(modes[0]);
@@ -19,16 +17,6 @@ const Codding = ({ url, session }) => {
 
   //graph editor (code map)
   const [codeMap, setCodeMap] = useState([]);
-
-  //code editor
-  const [code, setCode] = useState(() => {
-    // getting stored value
-    const savedCode = localStorage.getItem('code');
-    return savedCode || CODE_TEMPLATE;
-  });
-  useEffect(() => {
-    localStorage.setItem('code', code);
-  }, [code]);
 
   // data
   const [input, setInput] = useState('');
@@ -57,7 +45,7 @@ const Codding = ({ url, session }) => {
     return code.split('\n').join('\\n');
   };
 
-  const runHandler = () => {
+  const run = (code) => {
     const inputCode = dataTabIndex === 0 ? input : testInput;
     const codeForRun = code.replace(DATA_TEMPLATE, escapeNewLines(inputCode));
     console.log(codeForRun);
@@ -65,6 +53,16 @@ const Codding = ({ url, session }) => {
     const out = eval(codeForRun);
     console.log('Out: ' + out);
     dataTabIndex === 0 ? setOutput(out) : setTestOutput(out);
+  };
+
+  const runHandler = () => {
+    run(code);
+  };
+
+  const debugHandler = () => {
+    run(
+      `debugger;\n\n${code}\n\ndebugger;//end of program\n//@ sourceURL=code.js`
+    );
   };
 
   const handleChangeMode = () => {
@@ -86,6 +84,7 @@ const Codding = ({ url, session }) => {
       />
       <RunDebugBar
         runHandler={runHandler}
+        debugHandler={debugHandler}
         mode={mode}
         handleChangeMode={handleChangeMode}
       />

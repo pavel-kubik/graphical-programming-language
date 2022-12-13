@@ -7,6 +7,7 @@ import { slide as Menu } from 'react-burger-menu';
 import Codding from './components/Codding';
 import Settings from './components/Settings';
 import useVH from 'react-viewport-height';
+import { CODE_TEMPLATE } from './const';
 
 function App() {
   useVH();
@@ -30,45 +31,65 @@ function App() {
     localStorage.setItem('session', session);
   }, [session]);
 
+  //code editor
+  const [code, setCode] = useState(() => {
+    // getting stored value
+    const savedCode = localStorage.getItem('code');
+    return savedCode || CODE_TEMPLATE;
+  });
+  useEffect(() => {
+    localStorage.setItem('code', code);
+  }, [code]);
+
   return (
-    <div id="outer-container">
-      <Router>
-        <Menu
-          right
-          width="auto"
-          pageWrapId={'App'}
-          outerContainerId={'outer-container'}
-        >
-          <Link id="Codding" to="/">
-            Codding
-          </Link>
-          <Link id="Settings" to="/settings">
-            Settings
-          </Link>
-        </Menu>
-        <div className="App">
-          <header className="App-header">GraphPL</header>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<Codding url={url} session={session} />}
-            />
-            <Route
-              path="/settings"
-              element={
-                <Settings
-                  url={url}
-                  session={session}
-                  setUrl={setUrl}
-                  setSession={setSession}
-                />
-              }
-            />
-          </Routes>
-        </div>
-      </Router>
-    </div>
+    <>
+      <script type="text/javascript">{code}</script>
+      <div id="outer-container">
+        <Router>
+          <Menu
+            right
+            width="auto"
+            pageWrapId={'App'}
+            outerContainerId={'outer-container'}
+          >
+            <Link id="Codding" to="/">
+              Codding
+            </Link>
+            <Link id="Settings" to="/settings">
+              Settings
+            </Link>
+          </Menu>
+          <div className="App">
+            <header className="App-header">GraphPL</header>
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <Codding
+                    url={url}
+                    session={session}
+                    code={code}
+                    setCode={setCode}
+                  />
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <Settings
+                    url={url}
+                    session={session}
+                    setUrl={setUrl}
+                    setSession={setSession}
+                  />
+                }
+              />
+            </Routes>
+          </div>
+        </Router>
+      </div>
+    </>
   );
 }
 
