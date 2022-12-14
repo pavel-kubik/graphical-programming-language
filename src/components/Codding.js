@@ -8,6 +8,7 @@ import InputBox from './InputBox';
 import OutputBox from './OutputBox';
 import RunDebugBar from './RunDebugBar';
 import { DATA_TEMPLATE } from '../const';
+import { useEffect } from 'react';
 
 const Codding = ({ url, session, code, setCode }) => {
   // eslint-disable-next-line no-unused-vars
@@ -19,11 +20,29 @@ const Codding = ({ url, session, code, setCode }) => {
   const [codeMap, setCodeMap] = useState([]);
 
   // data
-  const [input, setInput] = useState('');
-  const [testInput, setTestInput] = useState('');
+  const [input, setInput] = useState(() => {
+    const savedInput = localStorage.getItem('input');
+    return savedInput || 'my\ndata';
+  });
+  useEffect(() => {
+    localStorage.setItem('input', input);
+  }, [input]);
+  const [testInput, setTestInput] = useState(() => {
+    const savedTestInput = localStorage.getItem('testInput');
+    return savedTestInput || 'my\ntest\ndata';
+  });
+  useEffect(() => {
+    localStorage.setItem('testInput', testInput);
+  }, [testInput]);
   const [output, setOutput] = useState('');
   const [testOutput, setTestOutput] = useState('');
-  const [dataTabIndex, setDataTabIndex] = useState(0);
+  const [dataTabIndex, setDataTabIndex] = useState(() => {
+    const savedDataTabIndex = Number(localStorage.getItem('dataTabIndex'));
+    return savedDataTabIndex || 0;
+  });
+  useEffect(() => {
+    localStorage.setItem('dataTabIndex', dataTabIndex);
+  }, [dataTabIndex]);
 
   const addCode = (code) => {
     setCodeMap([...codeMap, code]);
