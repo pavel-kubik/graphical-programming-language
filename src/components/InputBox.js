@@ -27,7 +27,7 @@ const InputBox = ({
     event.preventDefault();
     // number fo days from 1/12/2022
     const day = Math.round(
-      (new Date() - new Date(2022, 11, 1)) / (1000 * 60 * 60 * 24)
+      (new Date() - new Date(2022, 11, 1)) / (1000 * 60 * 60 * 24) + 1
     );
     // it must be called via backend because of no-cors policy on AoC domain
     fetch('/.netlify/functions/proxy', {
