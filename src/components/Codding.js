@@ -7,14 +7,14 @@ import CodeMap from './CodeMap';
 import InputBox from './InputBox';
 import OutputBox from './OutputBox';
 import RunDebugBar from './RunDebugBar';
-import { DATA_TEMPLATE } from '../const';
+import { DATA_TEMPLATE, WORKER_TEMPLATE } from '../const';
 import { useEffect } from 'react';
 
 const Codding = ({ url, session, code, setCode }) => {
   // eslint-disable-next-line no-unused-vars
   const modes = ['code-js', 'code-ruby', 'graphical'];
   const [mode, setMode] = useState(modes[0]);
-  //const [mode, setMode] = useState('graph');
+  const [worker, setWorker] = useState(null);
 
   //graph editor (code map)
   const [codeMap, setCodeMap] = useState([]);
@@ -67,21 +67,42 @@ const Codding = ({ url, session, code, setCode }) => {
   const run = (code) => {
     const inputCode = dataTabIndex === 0 ? input : testInput;
     const codeForRun = code.replace(DATA_TEMPLATE, escapeNewLines(inputCode));
-    console.log(codeForRun);
-    // eslint-disable-next-line no-eval
-    const out = eval(codeForRun);
-    console.log('Out: ' + out);
-    dataTabIndex === 0 ? setOutput(out) : setTestOutput(out);
+
+    console.log('Code to run:' + codeForRun);
+    const worker = new Worker(
+      URL.createObjectURL(
+        new Blob([codeForRun], { type: 'application/javascript' })
+      )
+    );
+    worker.onmessage = (e) => {
+      console.log('Message received from worker');
+      console.log('OUTPUT: ' + e.data);
+      dataTabIndex === 0 ? setOutput(e.data) : setTestOutput(e.data);
+    };
+    worker.onerror = (e) => {
+      console.log('Error received from worker');
+      const error = 'Line ' + e.lineno + ' col ' + e.colno + ' ' + e.message;
+      dataTabIndex === 0 ? setOutput(error) : setTestOutput(error);
+    };
+    setWorker(worker);
+    worker.postMessage('start');
   };
 
   const runHandler = () => {
-    run(code);
+    run(`${code}\n${WORKER_TEMPLATE}`);
   };
 
   const debugHandler = () => {
     run(
-      `debugger;\n\n${code}\n\ndebugger;//end of program\n//@ sourceURL=code.js`
+      `debugger;\n${code}\ndebugger;\n//END\n\n${WORKER_TEMPLATE}\n//@ sourceURL=code.js`
     );
+  };
+
+  const killHandler = () => {
+    if (worker) {
+      worker.terminate();
+      setWorker(null);
+    }
   };
 
   const handleChangeMode = () => {
@@ -104,6 +125,7 @@ const Codding = ({ url, session, code, setCode }) => {
       <RunDebugBar
         runHandler={runHandler}
         debugHandler={debugHandler}
+        killHandler={killHandler}
         mode={mode}
         handleChangeMode={handleChangeMode}
       />

@@ -18,3 +18,7 @@
 .RunDebugBar .Run {
   background-color: #090;
 }
+
+.RunDebugBar .Kill {
+  background-color: #900;
+}
