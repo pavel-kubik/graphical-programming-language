@@ -69,7 +69,7 @@ const InputBox = ({
             value={input}
             onChange={handlerChangeInput}
           ></textarea>
-          <div className="Load" onClick={handleLoadData}>
+          <div className="Load Button" onClick={handleLoadData}>
             Load data from AoC
           </div>
         </TabPanel>
