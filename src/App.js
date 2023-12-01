@@ -16,7 +16,8 @@ function App() {
   const [url, setUrl] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem('url');
-    return saved || 'https://adventofcode.com/2022/day/%day%/input';
+    const year = new Date().getFullYear();
+    return saved || `https://adventofcode.com/${year}/day/%day%/input`;
   });
   useEffect(() => {
     localStorage.setItem('url', url);
